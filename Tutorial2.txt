@@ -1,0 +1,132 @@
+﻿# -*- coding: utf-8 -*-
+"""
+Created on Sun Apr 30 10:59:49 2017
+
+@author: 213524883 Problem 1
+"""
+
+
+import numpy as np
+
+arr = np.fromstring(input('Input array elements in ascending order separated by a comma: '), dtype=float, sep=',')
+a = arr.size
+c = arr[a/2]
+
+if type(c) == int:
+     print('The centre of the array is', c)
+else:
+     print('The median/centre of the array is', np.median(arr))
+     
+    
+def shift(x,m=0):
+    v=0*x  
+    v[m]=1
+    vft=np.fft.fft(v)
+    xft=np.fft.fft(x)
+    return (np.fft.ifft(xft*vft))
+
+if __name__=='__main__':
+    x = np.arange(-1*arr[-1], arr[-1], 0.1)
+    y = np.exp(-0.5*x**2/4)
+    shiftedy = shift(y, 2*a)
+    
+
+from matplotlib import pyplot as plt
+plt.ion
+plt.plot(x, y)
+plt.plot(x, shiftedy)
+
+""Problem 2""
+
+import numpy as np
+from matplotlib import pyplot as plt
+
+arr = np.fromstring(input('Input first array elements in ascending order separated by a comma: '), dtype=float, sep=',')
+x = np.arange(-1*arr[-1], arr[-1], 0.1)
+y = np.exp(-0.5*x**2/4)
+
+a = x.size
+a1 = y.size
+
+if a == a1:
+    print("The arrays have the same shape")
+    xft = np.fft.fft(x)
+    yft = np.fft.fft(y)
+    yconj = np.conj(yft)
+    ans = np.real(np.fft.ifft(yft*yconj))
+    plt.plot(x, ans)
+else:
+    print("The arrays do not have the same shape")
+    
+""Problem 3""
+
+import numpy as np
+from matplotlib import pyplot as plt
+
+arr = np.fromstring(input('Input array elements in ascending order separated by a comma: '), dtype=float, sep=',')
+a = arr.size
+c = arr[a/2]
+   
+def shift(x,m=0):
+    v=0*x  
+    v[m]=1
+    vft=np.fft.fft(v)
+    xft=np.fft.fft(x)
+    return (np.fft.ifft(xft*vft))
+
+if __name__=='__main__':
+    x = np.arange(-1*arr[-1], arr[-1], 0.1)
+    y = np.exp(-0.5*x**2/4)
+    shiftedy = shift(y, 2*a)
+    
+a = x.size
+a1 = y.size
+
+if a == a1:
+    print("The arrays have the same shape")
+    xft = np.fft.fft(x)
+    yft1 = np.fft.fft(y)
+    yft = np.fft.fft(shiftedy)
+    yconj = np.conj(yft)
+    yconj1 = np.conj(yft1)
+    ans = np.real(np.fft.ifft(yft*yconj))
+    ans1 = np.real(np.fft.ifft(yft1*yconj1))
+    plt.plot(x, ans)
+    plt.plot(x, ans1)
+else:
+    print("The arrays do not have the same shape")
+    
+diff = np.mean(np.abs(ans-ans1))
+print("The average absolute space between both functions is:", diff)
+
+""Problem 4""
+
+import numpy as np
+
+from matplotlib import pyplot as plt
+
+arr = np.fromstring(input('Input array elements in ascending order separated by a comma: '), dtype=float, sep=',')
+arr = np.insert(np.append(arr, [0]), 0, 0)
+a = arr.size
+x = np.arange(-1*arr[-2], arr[-2], 0.1)
+y = np.exp(-0.5*x**2/4)
+a = x.size
+a1 = y.size
+
+print(a, a1)
+
+
+if a == a1:
+    print("The arrays have the same shape")
+    xft = np.fft.fft(x)
+    yft = np.fft.fft(y)
+    ans = np.real(np.fft.ifft(yft*yft))
+    ans1 = np.real(np.fft.ifft(xft*yft))
+    y = y/y.sum()
+    plt.plot(x, ans)
+    plt.plot(x, yft)
+else:
+    print("The arrays do not have the same shape")
+
+""Problem 5""
+
